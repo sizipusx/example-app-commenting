@@ -40,6 +40,7 @@ space(2)
 
 conn = db.connect()
 comments = db.collect(conn)
+st.write(comments)
 
 with st.expander("💬 Open comments"):
 
