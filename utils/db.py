@@ -1,14 +1,20 @@
+import socket
+
+import google_auth_httplib2
+import httplib2
 import pandas as pd
 import streamlit as st
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
+from googleapiclient.http import HttpRequest
+
+socket.setdefaulttimeout(15 * 60)
 
 SCOPE = "https://www.googleapis.com/auth/spreadsheets"
 #SPREADSHEET_ID = "1rkMVLvh3JrBq_tbi4Ho0qjCDAP3vYdNuWOEjYpkJLNU"
 SPREADSHEET_ID = "1-seXiY5a1NuMNwURA409Q6u2g8ZQo843xMJku7mV6Q0"
 SHEET_NAME = "일지기록"
 GSHEET_URL = f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}"
-
 
 @st.experimental_singleton()
 def connect():
@@ -18,7 +24,22 @@ def connect():
         scopes=[SCOPE],
     )
 
-    service = build("sheets", "v4", credentials=credentials)
+    # Create a new Http() object for every request
+    def build_request(http, *args, **kwargs):
+        new_http = google_auth_httplib2.AuthorizedHttp(
+            credentials, http=httplib2.Http()
+        )
+        return HttpRequest(new_http, *args, **kwargs)
+
+    authorized_http = google_auth_httplib2.AuthorizedHttp(
+        credentials, http=httplib2.Http()
+    )
+    service = build(
+        "sheets",
+        "v4",
+        requestBuilder=build_request,
+        http=authorized_http,
+    )
     gsheet_connector = service.spreadsheets()
     return gsheet_connector
 
