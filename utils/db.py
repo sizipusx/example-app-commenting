@@ -12,8 +12,8 @@ socket.setdefaulttimeout(15 * 60)
 
 SCOPE = "https://www.googleapis.com/auth/spreadsheets"
 #SPREADSHEET_ID = "1rkMVLvh3JrBq_tbi4Ho0qjCDAP3vYdNuWOEjYpkJLNU"
-SPREADSHEET_ID = "1-seXiY5a1NuMNwURA409Q6u2g8ZQo843xMJku7mV6Q0"
-SHEET_NAME = "일지기록"
+SPREADSHEET_ID = "1cr50NkztlYeTCMkmqkeq16Va-99yT3Hs-Rbl2TGOp1U"
+SHEET_NAME = "mae"
 GSHEET_URL = f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}"
 
 @st.experimental_singleton()
