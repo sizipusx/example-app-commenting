@@ -6,4 +6,4 @@ google-auth
 google-auth-httplib2
 protobuf
 click==8
-gsheetsdb=0.1.13.1
+gsheetsdb==0.1.13.1
